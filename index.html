@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Craft | 質感文創工作室選品</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Noto Serif TC & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        craft: {
+                            50: '#FDFBF7',
+                            100: '#F7F3E9',
+                            200: '#EFE5CE',
+                            300: '#E0CEAA',
+                            400: '#CBB182',
+                            500: '#B2915C',
+                            600: '#947242',
+                            700: '#755631',
+                            800: '#5A4125',
+                            900: '#3D2A18',
+                        },
+                        studio: {
+                            bg: '#F9F6F0',
+                            card: '#FFFFFF',
+                            accent: '#C86D51', // 溫暖陶土紅
+                            dark: '#2C2A29',
+                            muted: '#7A7571'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F9F6F0;
+            color: #2C2A29;
+            font-family: 'Inter', 'Noto Serif TC', sans-serif;
+        }
+
+        /* 呼吸與脈衝光暈動畫 */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 0.2; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .hotspot-pulse {
+            animation: pulse-ring 2.5s infinite ease-in-out;
+        }
+
+        /* 繪圖物件浮動動畫 */
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .interactive-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .interactive-item:hover {
+            filter: drop-shadow(0 12px 20px rgba(178, 145, 92, 0.25));
+            transform: scale(1.03) translateY(-3px);
+        }
+
+        /* 自訂滾動條 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1EBE1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBB182;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B2915C;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-craft-200 selection:text-craft-900">
+
+    <!-- 頂部宣傳橫幅 (解決現金流優惠企劃) -->
+    <div class="bg-studio-accent text-white text-xs md:text-sm py-2 px-4 text-center font-medium tracking-wide flex justify-center items-center gap-2 shadow-sm">
+        <span class="bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold">限時企劃</span>
+        <span>工作室開幕週！全館消費滿 NT$1,500 即享免運 + 贈精美好禮</span>
+        <a href="#bundles" class="underline hover:text-craft-100 transition ml-2 font-bold">查看打包特惠組 →</a>
+    </div>
+
+    <!-- 頂部導覽列 Header -->
+    <header class="sticky top-0 z-40 bg-studio-bg/90 backdrop-blur-md border-b border-craft-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- 品牌 Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-craft-700 text-craft-50 flex items-center justify-center font-serif text-xl font-bold shadow-md">
+                    創
+                </div>
+                <div>
+                    <a href="#" class="font-serif text-xl md:text-2xl font-bold text-studio-dark tracking-wide block">拾光文創工作室</a>
+                    <span class="text-[10px] text-studio-muted uppercase tracking-widest block -mt-1">Craft & Living Studio</span>
+                </div>
+            </div>
+
+            <!-- 主選單分類 -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-studio-dark">
+                <a href="#scene-map" class="hover:text-craft-600 transition flex items-center gap-1">
+                    <i class="fa-solid fa-compass text-craft-500 text-xs"></i> 靈感地圖
+                </a>
+                <a href="#bundles" class="hover:text-craft-600 transition flex items-center gap-1">
+                    <i class="fa-solid fa-box-open text-studio-accent text-xs"></i> 打包特惠組
+                </a>
+                <a href="#products-grid" class="hover:text-craft-600 transition">全系列 13 款選品</a>
+                <a href="#collab-section" class="hover:text-craft-600 transition text-studio-accent font-semibold">聯名企劃預告</a>
+            </nav>
+
+            <!-- 右側功能按鈕 -->
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleSearch()" class="p-2 text-studio-dark hover:text-craft-600 rounded-full hover:bg-craft-100 transition">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button onclick="toggleCart()" class="relative p-2 text-studio-dark hover:text-craft-600 rounded-full hover:bg-craft-100 transition">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cart-badge" class="absolute top-0 right-0 bg-studio-accent text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold shadow scale-0 transition-transform duration-300">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- 核心 Hero Area：桌面 / 房間情境互動地圖 -->
+        <section id="scene-map" class="relative py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="mb-6 text-center max-w-2xl mx-auto">
+                <span class="text-craft-600 font-semibold text-xs tracking-widest uppercase bg-craft-200/50 px-3 py-1 rounded-full">Interactive Scene</span>
+                <h1 class="text-2xl md:text-4xl font-serif font-bold text-studio-dark mt-3 mb-2">點擊場景物品，探索我們的質感日常</h1>
+                <p class="text-studio-muted text-sm md:text-base">工作室精心設計與嚴選的 13 款文創好物，已為您呈現在這間溫暖的房間角落。</p>
+            </div>
+
+            <!-- 情境圖容器 Canvas Container -->
+            <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-[#EFE9DD] min-h-[520px] md:min-h-[640px] flex items-center justify-center">
+                
+                <!-- SVG 背景：手繪質感房間與書桌情境 -->
+                <svg class="w-full h-full absolute inset-0 object-cover" viewBox="0 0 1000 650" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 牆面與地板區隔 -->
+                    <rect width="1000" height="420" fill="#EADFC9"/>
+                    <rect y="420" width="1000" height="230" fill="#D2C0A0"/>
+                    <!-- 地板木紋天花線 -->
+                    <line x1="0" y1="420" x2="1000" y2="420" stroke="#B8A380" stroke-width="6"/>
+
+                    <!-- 窗戶 Window -->
+                    <rect x="680" y="40" width="240" height="220" rx="10" fill="#FFFFFF" opacity="0.9" stroke="#A89475" stroke-width="8"/>
+                    <line x1="800" y1="40" x2="800" y2="260" stroke="#A89475" stroke-width="4"/>
+                    <line x1="680" y1="150" x2="920" y2="150" stroke="#A89475" stroke-width="4"/>
+                    <!-- 窗外山丘微景 -->
+                    <path d="M684 210 Q740 180 800 220 T916 200 L916 256 L684 256 Z" fill="#C5D8C1"/>
+
+                    <!-- 質感木桌 Desk -->
+                    <path d="M 120 380 L 880 380 L 920 480 L 80 480 Z" fill="#B38A58" stroke="#8C6333" stroke-width="4"/>
+                    <rect x="140" y="480" width="720" height="25" fill="#8C6333"/>
+                    <!-- 桌腳 -->
+                    <rect x="160" y="505" width="30" height="135" fill="#6D4C24"/>
+                    <rect x="810" y="505" width="30" height="135" fill="#6D4C24"/>
+
+                    <!-- 牆面畫框/貼紙 -->
+                    <rect x="150" y="70" width="120" height="150" fill="#FFF" stroke="#A89475" stroke-width="4" rx="4"/>
+                    <path d="M 170 180 L 210 120 L 230 150 L 250 110 L 260 180 Z" fill="#D3A27F"/>
+                    <circle cx="230" cy="100" r="12" fill="#E8C58C"/>
+
+                    <!-- 壁掛香氛掛卡 -->
+                    <line x1="450" y1="0" x2="450" y2="110" stroke="#7A7571" stroke-dasharray="3 3"/>
+                    <polygon points="450,110 470,140 430,140" fill="#C86D51"/>
+                </svg>
+
+                <!-- 互動式 13 款物品圖示圖層 (使用絕對定位擺放) -->
+                <div class="absolute inset-0 w-full h-full select-none" id="scene-hotspots">
+
+                    <!-- 1. 小型桌燈 (桌面左側) -->
+                    <div class="absolute top-[38%] left-[16%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item" onclick="openQuickView(1)">
+                        <div class="relative">
+                            <div class="w-16 h-28 md:w-20 md:h-36 flex flex-col items-center justify-end">
+                                <div class="w-12 h-10 md:w-16 md:h-12 bg-amber-100 rounded-t-full border-2 border-amber-600/40 shadow-lg group-hover:bg-amber-200 transition"></div>
+                                <div class="w-2 h-14 md:h-18 bg-amber-800"></div>
+                                <div class="w-10 h-3 bg-amber-900 rounded-full"></div>
+                            </div>
+                            <!-- Hotspot indicator -->
+                            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-5 h-5 bg-studio-accent rounded-full text-white flex items-center justify-center text-[10px] font-bold shadow-lg">
+                                <span class="absolute inset-0 rounded-full bg-studio-accent hotspot-pulse"></span>
+                                <i class="fa-solid fa-plus relative z-10"></i>
+                            </div>
+                            <!-- Tooltip Card -->
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">小型桌燈</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 1,280</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. 迷你盆栽花器 (窗台邊) -->
+                    <div class="absolute top-[28%] left-[72%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item" onclick="openQuickView(2)">
+                        <div class="relative">
+                            <div class="w-12 h-14 md:w-14 md:h-16 flex flex-col items-center justify-end">
+                                <div class="text-emerald-600 text-lg md:text-2xl -mb-1 animate-bounce">🌿</div>
+                                <div class="w-8 h-8 md:w-10 md:h-10 bg-stone-300 rounded-b-xl border border-stone-400 shadow"></div>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-5 h-5 bg-studio-accent rounded-full text-white flex items-center justify-center text-[10px] font-bold shadow-lg">
+                                <span class="absolute inset-0 rounded-full bg-studio-accent hotspot-pulse"></span>
+                                <i class="fa-solid fa-plus relative z-10"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">迷你盆栽花器</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 450</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 香氛擴香器 (牆面懸掛下方桌角) -->
+                    <div class="absolute top-[48%] left-[43%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item" onclick="openQuickView(3)">
+                        <div class="relative">
+                            <div class="w-10 h-16 md:w-12 md:h-20 flex flex-col items-center justify-end">
+                                <div class="flex space-x-1 -mb-1">
+                                    <div class="w-0.5 h-8 bg-amber-900 transform -rotate-6"></div>
+                                    <div class="w-0.5 h-9 bg-amber-900"></div>
+                                    <div class="w-0.5 h-8 bg-amber-900 transform rotate-6"></div>
+                                </div>
+                                <div class="w-8 h-10 md:w-10 md:h-12 bg-craft-200 rounded-lg border border-craft-400 shadow flex items-center justify-center">
+                                    <span class="text-[8px] font-serif text-craft-800">CRAFT</span>
+                                </div>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-5 h-5 bg-studio-accent rounded-full text-white flex items-center justify-center text-[10px] font-bold shadow-lg">
+                                <span class="absolute inset-0 rounded-full bg-studio-accent hotspot-pulse"></span>
+                                <i class="fa-solid fa-plus relative z-10"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">香氛擴香器</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 880</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. 木製托盤 (桌面中央) -->
+                    <div class="absolute top-[62%] left-[50%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item" onclick="openQuickView(4)">
+                        <div class="relative">
+                            <div class="w-48 h-20 md:w-64 md:h-28 bg-amber-800/20 rounded-xl border-2 border-amber-800/40 flex items-center justify-around p-2 shadow-inner">
+                                <!-- 托盤上的物品擺放 -->
+                                <span class="text-[10px] text-amber-900/60 font-serif">WOODEN TRAY</span>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-5 h-5 bg-studio-accent rounded-full text-white flex items-center justify-center text-[10px] font-bold shadow-lg">
+                                <span class="absolute inset-0 rounded-full bg-studio-accent hotspot-pulse"></span>
+                                <i class="fa-solid fa-plus relative z-10"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">木製托盤</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 650</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. 陶瓷馬克杯 (托盤上左側) -->
+                    <div class="absolute top-[61%] left-[42%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item z-10" onclick="openQuickView(5)">
+                        <div class="relative">
+                            <div class="w-8 h-10 md:w-10 md:h-12 bg-amber-50 rounded-b-xl border-2 border-amber-200 shadow flex items-center justify-center relative">
+                                <div class="absolute -right-2 top-2 w-3 h-5 border-2 border-amber-200 rounded-r-full"></div>
+                                <span class="text-[8px] font-bold text-craft-600">☕</span>
+                            </div>
+                            <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-studio-accent rounded-full text-white flex items-center justify-center text-[8px] font-bold shadow-lg">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">陶瓷馬克杯</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 420</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. 保溫杯 (托盤上右側) -->
+                    <div class="absolute top-[59%] left-[58%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item z-10" onclick="openQuickView(6)">
+                        <div class="relative">
+                            <div class="w-7 h-14 md:w-9 md:h-18 bg-stone-700 rounded-lg border border-stone-600 shadow flex flex-col items-center justify-between py-1">
+                                <div class="w-full h-2 bg-amber-600 rounded-t"></div>
+                                <div class="w-2 h-4 bg-stone-500/30 rounded"></div>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-4 h-4 bg-studio-accent rounded-full text-white flex items-center justify-center text-[8px] font-bold shadow-lg">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">保溫杯</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 780</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. 桌面收納盒 (桌面上右側) -->
+                    <div class="absolute top-[54%] left-[78%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item" onclick="openQuickView(7)">
+                        <div class="relative">
+                            <div class="w-20 h-16 md:w-28 md:h-22 bg-craft-300 rounded-lg border-2 border-craft-500 shadow-md flex flex-col p-1">
+                                <div class="w-full h-1/2 bg-craft-200 rounded mb-1 border border-craft-400"></div>
+                                <div class="w-full h-1/2 bg-craft-200 rounded border border-craft-400"></div>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-5 h-5 bg-studio-accent rounded-full text-white flex items-center justify-center text-[10px] font-bold shadow-lg">
+                                <span class="absolute inset-0 rounded-full bg-studio-accent hotspot-pulse"></span>
+                                <i class="fa-solid fa-plus relative z-10"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">桌面收納盒</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 590</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. 彩色筆組 (插在收納盒中) -->
+                    <div class="absolute top-[48%] left-[76%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item z-10" onclick="openQuickView(8)">
+                        <div class="relative">
+                            <div class="flex space-x-1">
+                                <div class="w-1.5 h-8 bg-red-400 rounded-t"></div>
+                                <div class="w-1.5 h-10 bg-blue-400 rounded-t"></div>
+                                <div class="w-1.5 h-7 bg-amber-400 rounded-t"></div>
+                                <div class="w-1.5 h-9 bg-emerald-400 rounded-t"></div>
+                            </div>
+                            <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-studio-accent rounded-full text-white flex items-center justify-center text-[8px] font-bold shadow-lg">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">彩色筆組</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 320</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 9. 筆記本 (桌面上左邊) -->
+                    <div class="absolute top-[56%] left-[28%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item transform -rotate-12" onclick="openQuickView(9)">
+                        <div class="relative">
+                            <div class="w-16 h-20 md:w-22 md:h-28 bg-craft-700 rounded-r-md border-l-4 border-craft-900 shadow-lg p-2 flex flex-col justify-between">
+                                <div class="w-full h-1 bg-craft-400/50"></div>
+                                <span class="text-[7px] text-craft-200 font-serif tracking-widest">NOTEBOOK</span>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-5 h-5 bg-studio-accent rounded-full text-white flex items-center justify-center text-[10px] font-bold shadow-lg">
+                                <span class="absolute inset-0 rounded-full bg-studio-accent hotspot-pulse"></span>
+                                <i class="fa-solid fa-plus relative z-10"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">質感筆記本</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 280</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 10. 小型藍牙喇叭 (筆記本旁) -->
+                    <div class="absolute top-[52%] left-[35%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item" onclick="openQuickView(10)">
+                        <div class="relative">
+                            <div class="w-10 h-10 md:w-14 md:h-14 bg-stone-800 rounded-xl border border-stone-600 shadow-md flex items-center justify-center p-1">
+                                <div class="w-full h-full border border-stone-600 rounded-lg flex items-center justify-center">
+                                    <div class="w-5 h-5 md:w-7 md:h-7 rounded-full border-2 border-stone-400 flex items-center justify-center">
+                                        <div class="w-2 h-2 bg-stone-300 rounded-full"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-4 h-4 bg-studio-accent rounded-full text-white flex items-center justify-center text-[8px] font-bold shadow-lg">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">小型藍牙喇叭</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 1,680</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 11. 電線整理器 (桌子下緣線路旁) -->
+                    <div class="absolute top-[68%] left-[70%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item" onclick="openQuickView(11)">
+                        <div class="relative">
+                            <div class="w-12 h-6 md:w-16 md:h-8 bg-craft-400 rounded-full border border-craft-600 shadow flex items-center justify-around px-1">
+                                <div class="w-2 h-2 bg-craft-800 rounded-full"></div>
+                                <div class="w-2 h-2 bg-craft-800 rounded-full"></div>
+                                <div class="w-2 h-2 bg-craft-800 rounded-full"></div>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-4 h-4 bg-studio-accent rounded-full text-white flex items-center justify-center text-[8px] font-bold shadow-lg">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">電線整理器</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 190</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 12. 折疊傘 (椅背/桌腳旁靠著) -->
+                    <div class="absolute top-[75%] left-[18%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item transform rotate-45" onclick="openQuickView(12)">
+                        <div class="relative">
+                            <div class="w-5 h-24 md:w-7 md:h-32 bg-stone-600 rounded-full border border-stone-500 shadow-xl flex flex-col items-center justify-between py-1">
+                                <div class="w-3 h-3 bg-craft-800 rounded-full"></div>
+                                <div class="w-full h-1 bg-stone-400"></div>
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-5 h-5 bg-studio-accent rounded-full text-white flex items-center justify-center text-[10px] font-bold shadow-lg">
+                                <span class="absolute inset-0 rounded-full bg-studio-accent hotspot-pulse"></span>
+                                <i class="fa-solid fa-plus relative z-10"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">自動折疊傘</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 620</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 13. 隨身小風扇 (桌子角落) -->
+                    <div class="absolute top-[65%] left-[88%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group interactive-item" onclick="openQuickView(13)">
+                        <div class="relative">
+                            <div class="w-8 h-14 md:w-10 md:h-18 flex flex-col items-center justify-end">
+                                <div class="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-stone-400 bg-white shadow flex items-center justify-center">
+                                    <div class="w-3 h-3 bg-craft-500 rounded-full"></div>
+                                </div>
+                                <div class="w-2 h-6 bg-stone-300"></div>
+                                <div class="w-6 h-2 bg-stone-400 rounded-full"></div>
+                            </div>
+                            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-4 h-4 bg-studio-accent rounded-full text-white flex items-center justify-center text-[8px] font-bold shadow-lg">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl shadow-xl border border-craft-200 text-center w-32 z-30 pointer-events-none">
+                                <span class="text-xs font-bold text-studio-dark">隨身小風扇</span>
+                                <span class="text-[11px] text-studio-accent font-semibold">NT$ 390</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 互動地圖提示卡片 -->
+                <div class="absolute bottom-4 left-4 right-4 md:left-auto md:right-4 bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-xl border border-craft-200 shadow-lg text-xs text-studio-dark flex items-center justify-between md:justify-start space-x-3 pointer-events-none">
+                    <span class="flex h-2 w-2 relative">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-studio-accent opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-studio-accent"></span>
+                    </span>
+                    <span>懸停檢視商品資訊，點擊光點可加入購物車</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 紓解現金流打包特惠專區 (Bundles Section) -->
+        <section id="bundles" class="py-12 md:py-16 bg-craft-100/60 border-y border-craft-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-studio-accent font-bold text-xs tracking-widest uppercase bg-studio-accent/10 px-3 py-1 rounded-full">Save More with Bundles</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-studio-dark mt-3 mb-2">理想生活提案｜一鍵打包特惠組</h2>
+                    <p class="text-studio-muted text-sm">組合購買享有最高 82 折優惠，一次為您的空間打造完整質感氣氛。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                    <!-- 組合 1: 理想辦公桌案組 -->
+                    <div class="bg-white rounded-2xl p-6 border border-craft-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-craft-200 text-craft-800 text-xs px-2.5 py-1 rounded-md font-semibold">辦公/學習推薦</span>
+                                <span class="text-studio-accent font-bold text-sm bg-studio-accent/10 px-2 py-0.5 rounded">省 NT$ 280</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-studio-dark mb-2">理想辦公桌案組</h3>
+                            <p class="text-xs text-studio-muted mb-4">整理好桌面思緒，讓靈感源源不絕湧現。</p>
+                            <ul class="text-xs space-y-2 text-studio-dark mb-6 border-t border-b border-craft-100 py-3">
+                                <li class="flex justify-between"><span>• 質感筆記本 + 彩色筆組</span><span class="text-studio-muted">NT$ 600</span></li>
+                                <li class="flex justify-between"><span>• 桌面收納盒 + 電線整理器</span><span class="text-studio-muted">NT$ 780</span></li>
+                                <li class="flex justify-between"><span>• 陶瓷馬克杯</span><span class="text-studio-muted">NT$ 420</span></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline justify-between mb-4">
+                                <span class="text-xs text-studio-muted line-through">原價 NT$ 1,800</span>
+                                <span class="text-2xl font-bold text-studio-dark">組合價 NT$ 1,520</span>
+                            </div>
+                            <button onclick="addBundleToCart(1)" class="w-full bg-studio-dark hover:bg-craft-800 text-white font-medium py-3 rounded-xl transition shadow-md flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-box-archive"></i>
+                                <span>一鍵打包組合</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 組合 2: 極致放鬆角落組 (主打) -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-studio-accent shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute -right-12 top-6 bg-studio-accent text-white text-[10px] font-bold uppercase tracking-wider py-1 px-12 rotate-45 shadow">
+                            熱銷 No.1
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-studio-accent/20 text-studio-accent text-xs px-2.5 py-1 rounded-md font-bold">居家舒壓首選</span>
+                                <span class="text-studio-accent font-bold text-sm bg-studio-accent/10 px-2 py-0.5 rounded">省 NT$ 590</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-studio-dark mb-2">極致放鬆角落組</h3>
+                            <p class="text-xs text-studio-muted mb-4">點燃微光與香氣，享受音樂繚繞的居家時光。</p>
+                            <ul class="text-xs space-y-2 text-studio-dark mb-6 border-t border-b border-craft-100 py-3">
+                                <li class="flex justify-between"><span>• 小型桌燈 + 香氛擴香器</span><span class="text-studio-muted">NT$ 2,160</span></li>
+                                <li class="flex justify-between"><span>• 小型藍牙喇叭</span><span class="text-studio-muted">NT$ 1,680</span></li>
+                                <li class="flex justify-between"><span>• 木製托盤</span><span class="text-studio-muted">NT$ 650</span></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline justify-between mb-4">
+                                <span class="text-xs text-studio-muted line-through">原價 NT$ 4,490</span>
+                                <span class="text-2xl font-bold text-studio-accent">組合價 NT$ 3,900</span>
+                            </div>
+                            <button onclick="addBundleToCart(2)" class="w-full bg-studio-accent hover:bg-red-700 text-white font-medium py-3 rounded-xl transition shadow-md flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span>一鍵打包組合 (享免運)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 組合 3: 質感隨行選物組 -->
+                    <div class="bg-white rounded-2xl p-6 border border-craft-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-craft-200 text-craft-800 text-xs px-2.5 py-1 rounded-md font-semibold">外出隨行必備</span>
+                                <span class="text-studio-accent font-bold text-sm bg-studio-accent/10 px-2 py-0.5 rounded">省 NT$ 240</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-studio-dark mb-2">質感隨行選物組</h3>
+                            <p class="text-xs text-studio-muted mb-4">優雅應對天氣變化，隨時保持舒適體驗。</p>
+                            <ul class="text-xs space-y-2 text-studio-dark mb-6 border-t border-b border-craft-100 py-3">
+                                <li class="flex justify-between"><span>• 保溫杯</span><span class="text-studio-muted">NT$ 780</span></li>
+                                <li class="flex justify-between"><span>• 自動折疊傘</span><span class="text-studio-muted">NT$ 620</span></li>
+                                <li class="flex justify-between"><span>• 隨身小風扇</span><span class="text-studio-muted">NT$ 390</span></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline justify-between mb-4">
+                                <span class="text-xs text-studio-muted line-through">原價 NT$ 1,790</span>
+                                <span class="text-2xl font-bold text-studio-dark">組合價 NT$ 1,550</span>
+                            </div>
+                            <button onclick="addBundleToCart(3)" class="w-full bg-studio-dark hover:bg-craft-800 text-white font-medium py-3 rounded-xl transition shadow-md flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-box-archive"></i>
+                                <span>一鍵打包組合</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 全商品分類網格 (All 13 Products) -->
+        <section id="products-grid" class="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+                <div>
+                    <span class="text-craft-600 font-semibold text-xs tracking-widest uppercase">Our Products</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-studio-dark mt-1">全系列 13 款選品</h2>
+                </div>
+                <!-- 篩選 Tab -->
+                <div class="flex space-x-2 mt-4 md:mt-0 overflow-x-auto pb-2 md:pb-0 text-xs md:text-sm" id="category-tabs">
+                    <button onclick="filterCategory('all')" class="tab-btn active px-4 py-2 rounded-full bg-studio-dark text-white font-medium transition">全部商品 (13)</button>
+                    <button onclick="filterCategory('office')" class="tab-btn px-4 py-2 rounded-full bg-craft-100 text-studio-dark hover:bg-craft-200 transition">辦公學習</button>
+                    <button onclick="filterCategory('home')" class="tab-btn px-4 py-2 rounded-full bg-craft-100 text-studio-dark hover:bg-craft-200 transition">居家生活</button>
+                    <button onclick="filterCategory('travel')" class="tab-btn px-4 py-2 rounded-full bg-craft-100 text-studio-dark hover:bg-craft-200 transition">隨行外出</button>
+                </div>
+            </div>
+
+            <!-- 商品網格 -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6" id="products-container">
+                <!-- 由 JavaScript 動態渲染 13 款商品 -->
+            </div>
+        </section>
+
+        <!-- 聯名企劃預告 (Collab Section) -->
+        <section id="collab-section" class="py-12 bg-craft-800 text-craft-50 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="max-w-xl">
+                    <span class="text-craft-300 text-xs uppercase tracking-widest font-semibold bg-craft-900/50 px-3 py-1 rounded-full">Coming Soon</span>
+                    <h2 class="text-2xl md:text-4xl font-serif font-bold mt-3 mb-3">2026 跨界聯名設計企劃</h2>
+                    <p class="text-craft-200 text-sm leading-relaxed mb-6">
+                        拾光工作室正與國際插畫家及獨立工藝師聯手開發全新系列。加入工作室電子報，第一時間獲取優先預訂資格與獨家早鳥優惠！
+                    </p>
+                    <form onsubmit="subscribeEmail(event)" class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" required placeholder="輸入您的 Email 信箱" class="px-4 py-3 rounded-xl bg-craft-900/80 border border-craft-600 text-white placeholder-craft-400 text-sm focus:outline-none focus:border-craft-300 flex-grow">
+                        <button type="submit" class="bg-studio-accent hover:bg-red-600 text-white font-medium px-6 py-3 rounded-xl transition text-sm shadow">
+                            訂閱聯名預告
+                        </button>
+                    </form>
+                </div>
+                <div class="w-full md:w-80 h-48 bg-craft-900/60 rounded-2xl border border-craft-600 flex flex-col items-center justify-center p-6 text-center">
+                    <i class="fa-solid fa-palette text-3xl text-craft-300 mb-3"></i>
+                    <span class="font-serif font-bold text-lg text-craft-100">聯名限定選品展</span>
+                    <span class="text-xs text-craft-400 mt-1">預計 11 月正式公開發表</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 Footer -->
+    <footer class="bg-studio-dark text-stone-400 text-xs py-10 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <div class="font-serif text-lg text-white font-bold mb-2">拾光文創工作室</div>
+                <p class="text-stone-400 leading-relaxed">用溫暖的設計物件，點亮日常生活中的微小詩意。</p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3">快速連結</h4>
+                <ul class="space-y-2">
+                    <li><a href="#scene-map" class="hover:text-white transition">互動情境地圖</a></li>
+                    <li><a href="#bundles" class="hover:text-white transition">打包特惠組</a></li>
+                    <li><a href="#products-grid" class="hover:text-white transition">全商品選購</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3">顧客服務</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white transition">購物須知與退換貨</a></li>
+                    <li><a href="#" class="hover:text-white transition">工作室實體選品點</a></li>
+                    <li><a href="#" class="hover:text-white transition">商業合作與代理</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3">關注工作室</h4>
+                <div class="flex space-x-4 text-base">
+                    <a href="#" class="w-8 h-8 rounded-full bg-stone-800 flex items-center justify-center hover:bg-craft-600 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-stone-800 flex items-center justify-center hover:bg-craft-600 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-stone-800 flex items-center justify-center hover:bg-craft-600 hover:text-white transition"><i class="fa-regular fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-stone-800 text-center text-stone-500">
+            © 2026 拾光文創工作室 Studio Craft. All rights reserved. E-commerce Homepage Prototype.
+        </div>
+    </footer>
+
+    <!-- 商品快速預覽彈窗 (Quick View Modal) -->
+    <div id="quick-view-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative transform scale-95 transition-transform duration-300" id="modal-content">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-100 text-stone-500 hover:bg-stone-200 transition flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-body">
+                <!-- 動態載入商品詳情 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 購物車側滑欄 (Cart Drawer) -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none">
+        <!-- 背景遮罩 -->
+        <div id="cart-overlay" onclick="toggleCart()" class="absolute inset-0 bg-black/50 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
+        <!-- 側邊欄本體 -->
+        <div id="cart-panel" class="absolute top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl translate-x-full transition-transform duration-300 ease-in-out pointer-events-auto flex flex-col justify-between">
+            <!-- 購物車 Header -->
+            <div class="p-5 border-b border-craft-200 flex items-center justify-between bg-studio-bg">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-bag-shopping text-craft-700"></i>
+                    <h3 class="font-serif font-bold text-lg text-studio-dark">您的選物購物車</h3>
+                </div>
+                <button onclick="toggleCart()" class="text-stone-400 hover:text-stone-600 p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- 免運進度條 -->
+            <div class="bg-craft-100 p-3 px-5 text-xs text-studio-dark">
+                <div class="flex justify-between font-medium mb-1">
+                    <span id="free-shipping-text">再消費 NT$ 1,500 即可享免運</span>
+                    <span id="free-shipping-percent" class="text-craft-700 font-bold">0%</span>
+                </div>
+                <div class="w-full bg-craft-200 rounded-full h-1.5 overflow-hidden">
+                    <div id="free-shipping-bar" class="bg-studio-accent h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- 購物車項目列表 -->
+            <div class="flex-grow overflow-y-auto p-5 space-y-4" id="cart-items-container">
+                <!-- JavaScript 動態填充 -->
+            </div>
+
+            <!-- 購物車 Footer 結帳區域 -->
+            <div class="p-5 border-t border-craft-200 bg-studio-bg space-y-3">
+                <div class="flex justify-between text-sm text-studio-muted">
+                    <span>商品小計</span>
+                    <span id="cart-subtotal" class="font-semibold text-studio-dark">NT$ 0</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-studio-dark pt-1 border-t border-craft-200">
+                    <span>總計金額</span>
+                    <span id="cart-total" class="text-xl text-studio-accent">NT$ 0</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-studio-dark hover:bg-craft-800 text-white font-medium py-3.5 rounded-xl transition shadow-lg text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>立即前往結帳</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 通知 Toast提示 -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-studio-dark text-white text-sm px-5 py-3 rounded-xl shadow-2xl opacity-0 pointer-events-none transition-all duration-300 flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-msg">已成功加入購物車！</span>
+    </div>
+
+    <!-- JavaScript 應用程式邏輯 -->
+    <script>
+        // 13 款完整商品數據資料集
+        const products = [
+            { id: 1, name: "小型桌燈", price: 1280, category: "home", icon: "💡", desc: "柔和暖光設計，為深夜閱讀或工作打造專屬的溫馨氛圍。", tag: "工作室自製" },
+            { id: 2, name: "迷你盆栽花器", price: 450, category: "home", icon: "🌿", desc: "手工陶藝燒製，適合擺放多肉植物或小綠植，點綴桌案氣息。", tag: "嚴選代理" },
+            { id: 3, name: "香氛擴香器", price: 880, category: "home", icon: "🕯️", desc: "選用天然精油與木質擴香棒，持續釋放舒緩療癒的木質香調。", tag: "熱銷好評" },
+            { id: 4, name: "木製托盤", price: 650, category: "home", icon: "🪵", desc: "天然黑胡桃木打造，完美收納馬克杯與隨身飾品。", tag: "工作室自製" },
+            { id: 5, name: "陶瓷馬克杯", price: 420, category: "home", icon: "☕", desc: "手感厚實的陶瓷質地，搭配簡約拉花紋理，晨間咖啡最佳陪伴。", tag: "經典款" },
+            { id: 6, name: "保溫杯", price: 780, category: "travel", icon: "🥤", desc: "雙層不鏽鋼真空保溫，長效保溫/保冷 8 小時，隨身帶走質感。", tag: "隨行熱銷" },
+            { id: 7, name: "桌面收納盒", price: 590, category: "office", icon: "📦", desc: "多格抽屜式組合，將文具、名片與零碎小物歸類井然有序。", tag: "實用推薦" },
+            { id: 8, name: "彩色筆組", price: 320, category: "office", icon: "✏️", desc: "12 色手繪風水性雙頭色筆，手帳記錄與靈感草圖的好幫手。", tag: "新品上市" },
+            { id: 9, name: "質感筆記本", price: 280, category: "office", icon: "📓", desc: "鋼筆適用 100g 磅數紙張，平攤 180 度書寫流暢無阻。", tag: "工作室自製" },
+            { id: 10, name: "小型藍牙喇叭", price: 1680, category: "home", icon: "📻", desc: "復古金屬外觀，高音清晰低音飽滿，隨處享受好聲音。", tag: "嚴選代理" },
+            { id: 11, name: "電線整理器", price: 190, category: "office", icon: "🔌", desc: "矽膠柔韌材質，有效固定充電線與傳輸線，告別桌面紛亂。", tag: "小巧便利" },
+            { id: 12, name: "自動折疊傘", price: 620, category: "travel", icon: "☂️", desc: "黑膠防曬抗 UV，一鍵自動開收，晴雨兩用優雅隨行。", tag: "隨行必備" },
+            { id: 13, name: "隨身小風扇", price: 390, category: "travel", icon: "🌀", desc: "靜音強勁風力，三段風速調節，USB 充電靈巧攜帶。", tag: "夏季選物" }
+        ];
+
+        // 購物車狀態
+        let cart = [];
+
+        // 初始化頁面
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProductsGrid(products);
+            updateCartUI();
+        });
+
+        // 渲染全商品網格
+        function renderProductsGrid(productList) {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+
+            productList.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl p-4 border border-craft-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div>
+                        <div class="w-full h-36 bg-craft-100/70 rounded-xl flex items-center justify-center text-4xl mb-3 group-hover:scale-105 transition-transform duration-300 relative">
+                            <span>${p.icon}</span>
+                            <span class="absolute top-2 left-2 bg-white/80 backdrop-blur-xs text-[10px] text-craft-800 font-bold px-2 py-0.5 rounded-full border border-craft-200">${p.tag}</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-studio-dark text-base mb-1">${p.name}</h4>
+                        <p class="text-xs text-studio-muted line-clamp-2 mb-3">${p.desc}</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs text-studio-muted">單品售價</span>
+                            <span class="font-bold text-studio-dark text-sm">NT$ ${p.price.toLocaleString()}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openQuickView(${p.id})" class="text-xs py-2 px-2 border border-craft-300 text-studio-dark font-medium rounded-lg hover:bg-craft-100 transition">
+                                查看細節
+                            </button>
+                            <button onclick="addToCart(${p.id})" class="text-xs py-2 px-2 bg-studio-dark hover:bg-craft-800 text-white font-medium rounded-lg transition shadow">
+                                + 加購物車
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 商品分類篩選
+        function filterCategory(cat) {
+            // 更新 Tab 樣式
+            const buttons = document.querySelectorAll('#category-tabs button');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn px-4 py-2 rounded-full bg-craft-100 text-studio-dark hover:bg-craft-200 transition text-xs md:text-sm";
+            });
+            event.target.className = "tab-btn active px-4 py-2 rounded-full bg-studio-dark text-white font-medium transition text-xs md:text-sm";
+
+            if (cat === 'all') {
+                renderProductsGrid(products);
+            } else {
+                const filtered = products.filter(p => p.category === cat);
+                renderProductsGrid(filtered);
+            }
+        }
+
+        // 開啟快速預覽 Modal
+        function openQuickView(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-24 h-24 bg-craft-100 rounded-full flex items-center justify-center text-5xl mb-4 shadow-inner">
+                        ${product.icon}
+                    </div>
+                    <span class="bg-craft-200 text-craft-800 text-xs px-2.5 py-0.5 rounded-full font-bold mb-2">${product.tag}</span>
+                    <h3 class="text-2xl font-serif font-bold text-studio-dark mb-2">${product.name}</h3>
+                    <p class="text-sm text-studio-muted mb-6 leading-relaxed max-w-sm">${product.desc}</p>
+                    
+                    <div class="w-full bg-craft-50 p-4 rounded-xl border border-craft-200 mb-6 flex justify-between items-center">
+                        <span class="text-xs text-studio-muted">售價金額</span>
+                        <span class="text-2xl font-bold text-studio-accent">NT$ ${product.price.toLocaleString()}</span>
+                    </div>
+
+                    <button onclick="addToCart(${product.id}); closeQuickView();" class="w-full bg-studio-dark hover:bg-craft-800 text-white font-medium py-3.5 rounded-xl transition shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span>加入購物車</span>
+                    </button>
+                </div>
+            `;
+
+            const modal = document.getElementById('quick-view-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }
+
+        // 關閉快速預覽 Modal
+        function closeQuickView() {
+            const modal = document.getElementById('quick-view-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+        }
+
+        // 打包特惠組一鍵加入購物車
+        function addBundleToCart(bundleType) {
+            if (bundleType === 1) {
+                // 辦公組
+                [9, 8, 7, 11, 5].forEach(id => addToCart(id, false));
+                showToast("已將「理想辦公桌案組」加入購物車！");
+            } else if (bundleType === 2) {
+                // 舒壓組
+                [1, 3, 10, 4].forEach(id => addToCart(id, false));
+                showToast("已將「極致放鬆角落組」加入購物車！");
+            } else if (bundleType === 3) {
+                // 隨行組
+                [6, 12, 13].forEach(id => addToCart(id, false));
+                showToast("已將「質感隨行選物組」加入購物車！");
+            }
+            openCart();
+        }
+
+        // 加入購物車
+        function addToCart(productId, showNotification = true) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            if (showNotification) {
+                showToast(`已成功加入「${product.name}」！`);
+            }
+        }
+
+        // 更新購物車數量
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+
+            item.qty += change;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            updateCartUI();
+        }
+
+        // 更新購物車界面 UI
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const totalEl = document.getElementById('cart-total');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            // 更新 Badge
+            badge.innerText = totalCount;
+            if (totalCount > 0) {
+                badge.classList.remove('scale-0');
+            } else {
+                badge.classList.add('scale-0');
+            }
+
+            // 免運進度條計算 (門檻 NT$1,500)
+            const freeShippingThreshold = 1500;
+            const freeShippingPercent = Math.min(100, Math.round((subtotal / freeShippingThreshold) * 100));
+            document.getElementById('free-shipping-percent').innerText = `${freeShippingPercent}%`;
+            document.getElementById('free-shipping-bar').style.width = `${freeShippingPercent}%`;
+            
+            const freeText = document.getElementById('free-shipping-text');
+            if (subtotal >= freeShippingThreshold) {
+                freeText.innerHTML = `<span class="text-emerald-700 font-bold">🎉 已達成免運門檻！</span>`;
+            } else {
+                freeText.innerText = `再消費 NT$ ${(freeShippingThreshold - subtotal).toLocaleString()} 即可享免運`;
+            }
+
+            // 渲染購物車項目
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-64 flex flex-col items-center justify-center text-studio-muted">
+                        <i class="fa-solid fa-box-open text-4xl mb-3 text-craft-300"></i>
+                        <p class="text-sm">購物車目前是空的</p>
+                        <a href="#scene-map" onclick="toggleCart()" class="mt-3 text-xs text-craft-600 font-semibold underline">去探索情境選品 →</a>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between bg-studio-bg p-3 rounded-xl border border-craft-200">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-xl shadow-xs">
+                                ${item.icon}
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-studio-dark">${item.name}</h5>
+                                <span class="text-xs text-studio-accent font-semibold">NT$ ${(item.price * item.qty).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-white border border-craft-200 rounded-lg px-2 py-1">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="text-xs text-studio-muted hover:text-studio-dark px-1">-</button>
+                            <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="text-xs text-studio-muted hover:text-studio-dark px-1">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            subtotalEl.innerText = `NT$ ${subtotal.toLocaleString()}`;
+            totalEl.innerText = `NT$ ${subtotal.toLocaleString()}`;
+        }
+
+        // 開啟/關閉購物車 Drawer
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-overlay');
+            const panel = document.getElementById('cart-panel');
+
+            if (panel.classList.contains('translate-x-full')) {
+                // 開啟
+                openCart();
+            } else {
+                // 關閉
+                panel.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    drawer.classList.add('pointer-events-none');
+                }, 300);
+            }
+        }
+
+        function openCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-overlay');
+            const panel = document.getElementById('cart-panel');
+
+            drawer.classList.remove('pointer-events-none');
+            overlay.classList.remove('opacity-0');
+            panel.classList.remove('translate-x-full');
+        }
+
+        // 顯示訊息 Toast
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        // 結帳功能模擬
+        function checkout() {
+            if (cart.length === 0) {
+                showToast("購物車為空，請先加入商品再結帳！");
+                return;
+            }
+            alert("🎉 模擬結帳成功！感謝您對拾光文創工作室的支持。");
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        // 搜尋提示
+        function toggleSearch() {
+            showToast("請在下方商品專區使用分類選單快速探索商品。");
+        }
+
+        // 訂閱電子報
+        function subscribeEmail(e) {
+            e.preventDefault();
+            showToast("感謝訂閱！我們會優先寄送聯名企劃最新消息給您。");
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
